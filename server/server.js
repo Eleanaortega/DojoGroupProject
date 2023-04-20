@@ -2,16 +2,19 @@ const express = require('express');
 const app = express();
 const port = 8000;
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
+
+require('dotenv').config();
 
 require('./config/mongoose.config');
-app.use(cors({
-    origin:'http://localhost:3000', credentials:true
-})
-);
+
+app.use(cookieParser());
+app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
 app.use(express.json(), express.urlencoded({ extended: true }));
 
-// require('./routes/.routes')(app);
+require('./routes/user.routes')(app);
+require('./routes/restaurant.routes')(app);
+require('./routes/review.routes')(app);
+
 
 app.listen(port, () => console.log(`Listening on port: ${port}`));
-
-//Oscars comment
