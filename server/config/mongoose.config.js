@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://127.0.0.1:27017/group_project', {
+mongoose.connect('mongodb://127.0.0.1:27017/ChatMe', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
