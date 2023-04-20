@@ -52,7 +52,13 @@ module.exports = {
             console.log(err);
             return res.status(400).json(err);
         }
+    },
+    findAllUsers: async (req, res) => {
+        try {
+            const allUsers = await User.find(); // Assuming User.find() returns a promise
+            res.json({ users: allUsers });
+        } catch (err) {
+            res.status(400).json(err);
+        }
     }
-        
-    }
-
+}
