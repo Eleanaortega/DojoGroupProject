@@ -3,8 +3,6 @@ const app = express();
 const port = 8000;
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
-const socket = require('socket.io');
-const http = require('http');
 const { chats } = require('./data/data')
 
 
@@ -28,7 +26,6 @@ app.get('/api/chat', (req,res) => {
 
 app.get('/api/chat/:id', (req,res) => {
     console.log(req.params.id);
-    
     const singleChat = chats.find((chat) => chat._id === req.params.id);
     res.send(singleChat);
 });
