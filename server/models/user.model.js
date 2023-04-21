@@ -30,6 +30,11 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: [true, "Password is required"],
         minlength: [8, "Password must be at least 8 characters"]
+    },
+    picture: {
+        type: String, 
+        required: [true, 'Profile picture is required'],
+        default: 'https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg'
     }
 }, {timestamps: true});
 

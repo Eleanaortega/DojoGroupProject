@@ -1,10 +1,13 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 
-const Chats = () => {
-    const fetchChats = async () => {
 
-        const data = await axios.get('/api/chat')
+const Chats = () => {
+const [chats, setChats] = useState([]);
+
+    const fetchChats = async () => {
+        const { data } = await axios.get('http://localhost:8000/api/chat')
+        setChats(data)
         console.log(data)
     }
     useEffect(() => {
@@ -13,8 +16,11 @@ const Chats = () => {
 
   return (
    <div>
-    <p>whats ypo</p>
-   </div>
+    {chats.map((data) => {
+        return (
+            <h1>{data.chatName}</h1>
+        )
+    })}</div>
   )
 }
 

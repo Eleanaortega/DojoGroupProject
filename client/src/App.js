@@ -1,12 +1,15 @@
 import React from 'react'
 import Chats from './components/Chats.jsx'
 import {Routes, Route} from 'react-router-dom';
+import SignUp from './components/SignUp.jsx';
+import Login from './components/Login.jsx';
 
 const App = () => {
   return (
     <div>
-      <h1>Test</h1>
-      <Chats/>
+      {/* <Chats/> */}
+      <SignUp/>
+      <Login/>
     </div>
   )
 }
