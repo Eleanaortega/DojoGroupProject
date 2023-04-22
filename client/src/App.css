@@ -1,5 +1,11 @@
+
 .App {
   text-align: center;
+  min-height: 100vh;
+  display: flex;
+  background-image: url('/src/pexels-felix-mittermeier-956981.jpg');
+  background-size: cover;
+  background-position: center;
 }
 
 .App-logo {
@@ -35,4 +41,8 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.font-face-gm {
+  font-family: 'Montserrat-Light';
 }

@@ -16,9 +16,9 @@ const [chats, setChats] = useState([]);
 
   return (
    <div>
-    {chats.map((data) => {
-        return (
-            <h1>{data.chatName}</h1>
+    {chats.map((chat) => {
+        (
+            <h1 key={chat._id}>{chat.chatName}</h1>
         )
     })}</div>
   )
