@@ -9,13 +9,12 @@ const cors = require('cors')
 
 // middleware for cookies
 const cookieParser = require('cookie-parser');
-const { errorHandler } = require('./error');
+//const { errorHandler } = require('./error');
 const PORT = 8000;
 
 
 app.use( express.json() )
 app.use( express.urlencoded({extended:true}) )
-// app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
 app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
 app.use(cookieParser())
 

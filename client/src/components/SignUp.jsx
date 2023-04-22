@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { FormControl, FormLabel} from '@chakra-ui/form-control'
 import { Input, InputGroup, InputRightElement } from '@chakra-ui/input'
 import axios from 'axios';
+import { useToast } from '@chakra-ui/react'
 
 const SignUp = () => {
 
@@ -15,21 +16,68 @@ const [email, setEmail] = useState();
 const [password, setPassword] = useState();
 const [confirmPassword, setConfirmPassword] = useState();
 const [picture, setPicture] = useState();
+const [loading, setLoading] = useState(false);
+const toast = useToast()
 
 const handleClick = () => setShow(!show);
 
-const postDetails = (picture) => {}
+const postDetails = (picture) => {
+    setLoading(true);
+    if (picture === undefined){
+        toast({
+            title: 'Please Select an Image',
+            status: 'warning',
+            duration: 5000,
+            isClosable: true,
+            position: "bottom",
+        })
+        return;
+    }
+    if (picture.type === "image/jpeg" || picture.type === "image/png") {
+        const data = new FormData();
+        data.append("file", picture);
+        data.append("upload_preset", "chatMe");
+        data.append("cloud_name", "duvzyqqgf");
+        fetch("https://api.cloudinary.com/v1_1/duvzyqqgf/image/upload", {
+        method: "post",
+        body: data,
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            setPicture(data.url.toString());
+            console.log(data.url.toString());
+            setLoading(false);
+        })
+        .catch((err) => {
+            console.log(err);
+            setLoading(false);
+        });
+    } else {
+        toast({
+        title: "Please Select an Image!",
+        status: "warning",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+        });
+        setLoading(false);
+        return;
+    }
+    };
+  
+
 
 const submitHandler = (e) => {
     e.preventDefault()
     console.log('register from')
     axios.post('http://localhost:8000/api/users/register', {
-        firstName, lastName, email, password, confirmPassword
+        firstName, lastName, email, password, confirmPassword, picture
     }, { withCredentials: true })
         .then ( res => {
             console.log("logged user" + res.data)
         } )
         .catch(console.log("Error"))
+
 }
 
   return ( <VStack spacing='5px'>
@@ -91,7 +139,8 @@ const submitHandler = (e) => {
         colorScheme='blue'
         width="100%"
         style={{ marginTop: 15}}
-        onClick={submitHandler}>
+        onClick={submitHandler}
+        isLoading = {loading}>
         Sign Up
     </Button>
   </VStack>
