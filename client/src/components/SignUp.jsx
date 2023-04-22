@@ -6,6 +6,8 @@ import { FormControl, FormLabel} from '@chakra-ui/form-control'
 import { Input, InputGroup, InputRightElement } from '@chakra-ui/input'
 import axios from 'axios';
 import { useToast } from '@chakra-ui/react'
+import { useNavigate } from 'react-router-dom';
+
 
 const SignUp = () => {
 
@@ -17,7 +19,9 @@ const [password, setPassword] = useState();
 const [confirmPassword, setConfirmPassword] = useState();
 const [picture, setPicture] = useState();
 const [loading, setLoading] = useState(false);
-const toast = useToast()
+const toast = useToast();
+const navigate = useNavigate();
+
 
 const handleClick = () => setShow(!show);
 
@@ -64,8 +68,70 @@ const postDetails = (picture) => {
         return;
     }
     };
-  
 
+    // const submitHandler = async () => {
+    //     setLoading(true);
+    //     if (!firstName || !lastName || !email || !password || !confirmPassword) {
+    //     toast({
+    //         title: "Please Fill all the Feilds",
+    //         status: "warning",
+    //         duration: 5000,
+    //         isClosable: true,
+    //         position: "bottom",
+    //     });
+    //     setLoading(false);
+    //     return;
+    //     }
+    //     if (password !== confirmPassword) {
+    //     toast({
+    //         title: "Passwords Do Not Match",
+    //         status: "warning",
+    //         duration: 5000,
+    //         isClosable: true,
+    //         position: "bottom",
+    //     });
+    //     return;
+    //     }
+    //     try {
+    //     const config = {
+    //         headers: {
+    //         "Content-type": "application/json",
+    //         },
+    //     };
+    //     const { data } = await axios.post(
+    //         "/api/users/register",
+    //         {
+    //         firstName,
+    //         lastName,
+    //         email,
+    //         password,
+    //         picture,
+    //         },
+    //         config
+    //     );
+    //     console.log(data);
+    //     toast({
+    //         title: "Registration Successful",
+    //         status: "success",
+    //         duration: 5000,
+    //         isClosable: true,
+    //         position: "bottom",
+    //     });
+    //     localStorage.setItem("userInfo", JSON.stringify(data));
+    //     setLoading(false);
+    //     navigate("/chats");
+    //     } catch (error) {
+    //     toast({
+    //         title: "Error Occured!",
+    //         description: error.response.data.message,
+    //         status: "error",
+    //         duration: 5000,
+    //         isClosable: true,
+    //         position: "bottom",
+    //     });
+    //     setLoading(false);
+    //     }
+    // };
 
 const submitHandler = (e) => {
     e.preventDefault()
