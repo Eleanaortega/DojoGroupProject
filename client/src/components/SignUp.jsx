@@ -1,8 +1,8 @@
 import React from 'react'
-import {VStack} from '@chakra-ui/react'
+import { VStack } from '@chakra-ui/react'
 import { Button } from '@chakra-ui/button'
 import { useState } from 'react'
-import { FormControl, FormLabel} from '@chakra-ui/form-control'
+import { FormControl, FormLabel } from '@chakra-ui/form-control'
 import { Input, InputGroup, InputRightElement } from '@chakra-ui/input'
 import axios from 'axios';
 import { useToast } from '@chakra-ui/react'
@@ -135,15 +135,14 @@ const postDetails = (picture) => {
 
 const submitHandler = (e) => {
     e.preventDefault()
-    console.log('register from')
+    console.log('register form')
     axios.post('http://localhost:8000/api/users/register', {
-        firstName, lastName, email, password, confirmPassword, picture
+        firstName, lastName, email, password, picture
     }, { withCredentials: true })
         .then ( res => {
             console.log("logged user" + res.data)
         } )
         .catch(console.log("Error"))
-
 }
 
   return ( <VStack spacing='5px'>
