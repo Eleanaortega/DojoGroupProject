@@ -8,7 +8,6 @@ import SignUp from './SignUp'
 const HomePage = () => {
   
   
-  
     return <Container maxW='xl' centerContent>
         <Box 
         d='flex'
