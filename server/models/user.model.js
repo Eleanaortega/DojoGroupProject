@@ -19,13 +19,12 @@ const UserSchema = new mongoose.Schema({
         unique: [true, "Email already exists"],
         validate: [isEmail, "Please enter a valid email"]
     },
-    username: {
-        type: String,
-        required: [true, "Username is required"],
-        unique: [true, "Username already exists"],
-        // Remember to check if a validator for username exists
-        maxlength: [10, "Username must be less than 10 characters"]
-    },
+    // username: {
+    //     type: String,
+    //     unique: [true, "Username already exists"],
+    //     // Remember to check if a validator for username exists
+    //     maxlength: [10, "Username must be less than 10 characters"]
+    // },
     password: {
         type: String,
         required: [true, "Password is required"],
@@ -33,7 +32,6 @@ const UserSchema = new mongoose.Schema({
     },
     picture: {
         type: String, 
-        required: [true, 'Profile picture is required'],
         default: 'https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg'
     }
 }, {timestamps: true});
