@@ -6,11 +6,12 @@ import Login from './components/Login.jsx';
 
 const App = () => {
   return (
-    <div>
-      {/* <Chats/> */}
-      <SignUp/>
-      {/* <Login/> */}
-    </div>
+    <div className="App">
+      <Routes>
+        <Route path="/register" element={<SignUp/>} exact />
+        <Route path="/login" element={<Login/>} />
+      </Routes>
+  </div>
   )
 }
 
