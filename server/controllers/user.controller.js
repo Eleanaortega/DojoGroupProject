@@ -6,6 +6,7 @@ const bcrypt = require("bcrypt");
 module.exports = {
     register: async (req, res) => {
     try{
+        console.log("Print something", req.body)
         const potentialUser = await User.findOne({email: req.body.email});
         if(potentialUser){
             res.status(400).json({message: "Email already exists"});

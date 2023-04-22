@@ -4,6 +4,7 @@ import { Button } from '@chakra-ui/button'
 import { useState } from 'react'
 import { FormControl, FormLabel} from '@chakra-ui/form-control'
 import { Input, InputGroup, InputRightElement } from '@chakra-ui/input'
+import axios from 'axios';
 
 const SignUp = () => {
 
@@ -19,7 +20,17 @@ const handleClick = () => setShow(!show);
 
 const postDetails = (picture) => {}
 
-const submitHandler = () => {}
+const submitHandler = (e) => {
+    e.preventDefault()
+    console.log('register from')
+    axios.post('http://localhost:8000/api/users/register', {
+        firstName, lastName, email, password, confirmPassword
+    }, { withCredentials: true })
+        .then ( res => {
+            console.log("logged user" + res.data)
+        } )
+        .catch(console.log("Error"))
+}
 
   return ( <VStack spacing='5px'>
     <FormControl id='firstName' isRequired>
