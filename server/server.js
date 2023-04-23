@@ -5,21 +5,6 @@ const app = express();
 //Commented out by RB
 // const { notFound, errorHandler } = require('./error')
 
-//Added by RB
-const notFound = (req, res, next) => {
-    const error = new Error(`Not Found - ${req.originalUrl}`);
-    res.status(404);
-    next(error);
-};
-const errorHandler = (err, req, res, next) => {
-    const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
-    res.status(statusCode);
-    res.json({
-        message: err.message,
-        // stack: process.env.NODE_ENV === "production" ? null : err.stack,
-    });
-};
-
 
 // cors cross-origin requests
 const cors = require('cors')
@@ -33,8 +18,8 @@ app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
 app.use(cookieParser())
 
 //RB updated to .use and pulled back into code
-app.use(notFound);
-app.use(errorHandler);
+// app.use(notFound);
+// app.use(errorHandler);
 
 require('dotenv').config();
 require('./config/mongoose.config');
