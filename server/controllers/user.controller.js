@@ -77,29 +77,55 @@ module.exports = {
 //         return res.status(400).json(err);
 //     }
 // }),
-    login: async (req, res) => {
-        try {
-            const user = await User.findOne({email: req.body.email});
-            if(user){
-                const passwordMatch = await bcrypt.compare(req.body.password, user.password);
-                if(passwordMatch){
-                    const userToken = jwt.sign({_id:user.id, email:user.email}, secret, {expiresIn: "1d"});
-                    res.cookie("usertoken", userToken, {
-                        httpOnly: true
-                    }).json({message: "success", user: user});
-                }
-                else{
-                res.status(400).json({message: "Invalid login attempt"});
-                }
-            }else{
-                res.status(400).json({message: "Invalid login attempt"});
-            }
+    login: asyncHandler(async (req, res) => {
+        
+        const {email, password} = req.body
+
+        const user = await User.findOne({email});
+
+        if(user && (await User.matchPassword(password))) {
+            res.json({
+                _id: user._id,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email,
+                picture: user.picture,
+                token: generateToken(user._id),
+            });
+        }else {
+            res.status(401);
+            throw new Error("Invalid Credentials");
         }
-        catch(err){
-            console.log(err);
-            return res.status(400).json(err);
-        }
-    },
+
+        
+        
+        
+        
+        
+    }),
+        
+        // try {
+        //     const user = await User.findOne({email: req.body.email});
+        //     if(user){
+        //         const passwordMatch = await bcrypt.compare(req.body.password, user.password);
+        //         if(passwordMatch){
+        //             const userToken = jwt.sign({_id:user.id, email:user.email}, secret, {expiresIn: "1d"});
+        //             res.cookie("usertoken", userToken, {
+        //                 httpOnly: true
+        //             }).json({message: "success", user: user});
+        //         }
+        //         else{
+        //         res.status(400).json({message: "Invalid login attempt"});
+        //         }
+        //     }else{
+        //         res.status(400).json({message: "Invalid login attempt"});
+        //     }
+        // }
+        // catch(err){
+        //     console.log(err);
+        //     return res.status(400).json(err);
+        // }
+    
     logout: async (req, res) => {
         try {
             res.clearCookie("usertoken").json({message: "success"});

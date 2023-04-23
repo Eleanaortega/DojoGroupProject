@@ -142,7 +142,7 @@ const submitHandler = (e) => {
         .then ( res => {
             console.log("logged user" + res.data)
         } )
-        .catch(console.log("Error"))
+        .catch( err => console.log("Error"))
 }
 
   return ( <VStack spacing='5px'>
