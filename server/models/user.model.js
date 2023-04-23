@@ -45,7 +45,8 @@ UserSchema.methods.matchPassword = async function (enteredPassword) {
       };
 
 UserSchema.pre('save', async function(next) {
-    if (!this.modified) {
+    //RB changed line 49 from !this.modified >> !this.isModified
+    if (!this.isModified) {
         next()
     }
 
