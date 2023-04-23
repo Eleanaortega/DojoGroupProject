@@ -40,19 +40,18 @@ UserSchema.virtual('confirmPassword')
     .get(() => this._confirmPassword)
     .set(value => this._confirmPassword = value);
 
-UserSchema.pre('validte', function(next) {
-    if (this.password !== this._confirmPassword ) {
-        this.invalidate('confirmPassword', 'Passwords must match')
-    } 
-    next();
-});
+UserSchema.methods.matchPassword = async function (enteredPassword) {
+        return await bcrypt.compare(enteredPassword, this.password);
+      };
 
-UserSchema.pre('save', function(next) {
-    bcrypt.hash(this.password, 10)
-        .then(hash => {
-            this.password = hash;
-            next();
-        });
+UserSchema.pre('save', async function(next) {
+    if (!this.modified) {
+        next()
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+
 });
 
 const User = mongoose.model("User", UserSchema);
