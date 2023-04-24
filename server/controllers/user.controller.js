@@ -97,12 +97,17 @@ module.exports = {
         }
     },
 
-    findAllUsers: async (req, res) => {
-        try {
-            const allUsers = await User.find();
-            res.json({ users: allUsers });
-        } catch (err) {
-            res.status(400).json(err);
-        }
-    },
+    findAllUsers: asyncHandler(async (req, res) => {
+        const keyword = req.query.search
+        ? {
+            $or: [
+                { firstName: { $regex: req.query.search, $options: "i" } },
+                { email: { $regex: req.query.search, $options: "i" } },
+            ],
+            }
+        : {};
+    
+        const users = await User.find(keyword).find({ _id: { $ne: req.user?._id ?? null } });
+        res.send(users);
+    })
 };
