@@ -13,7 +13,4 @@ module.exports = {
         }
     });
 }, 
-    generateToken: (id) => {
-    return jwt.sign({id}, SECRET, { expiresIn: "3d",});
 }
-};
