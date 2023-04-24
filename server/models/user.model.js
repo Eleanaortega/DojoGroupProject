@@ -19,12 +19,11 @@ const UserSchema = new mongoose.Schema({
         unique: [true, "Email already exists"],
         validate: [isEmail, "Please enter a valid email"]
     },
-    // username: {
-    //     type: String,
-    //     unique: [true, "Username already exists"],
-    //     // Remember to check if a validator for username exists
-    //     maxlength: [10, "Username must be less than 10 characters"]
-    // },
+    isAdmin: {
+        type: Boolean,
+        required: [true, "IsAdmin is required"],
+        default: false,
+    },
     password: {
         type: String,
         required: [true, "Password is required"],
@@ -42,7 +41,7 @@ UserSchema.virtual('confirmPassword')
 
 UserSchema.methods.matchPassword = async function (enteredPassword) {
         return await bcrypt.compare(enteredPassword, this.password);
-      };
+    };
 
 UserSchema.pre('save', async function(next) {
     //RB changed line 49 from !this.modified >> !this.isModified
