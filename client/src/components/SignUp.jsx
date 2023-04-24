@@ -140,12 +140,14 @@ const submitHandler = (e) => {
         firstName, lastName, email, password, picture
     }, { withCredentials: true })
         .then ( res => {
-            console.log("logged user" + res.data)
+            console.log("logged user", res.data)
+            navigate('/chats')
         } )
-        .catch( err => console.log("Error"))
-}
+        .catch( err => console.log(err))
+    }
 
   return ( <VStack spacing='5px'>
+
     <FormControl id='firstName' isRequired>
         <FormLabel>First Name</FormLabel>
         <Input 

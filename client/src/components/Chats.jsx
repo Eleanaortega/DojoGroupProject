@@ -3,10 +3,10 @@ import axios from 'axios';
 
 
 const Chats = () => {
-const [chats, setChats] = useState([]);
+    const [chats, setChats] = useState([]);
 
     const fetchChats = async () => {
-        const { data } = await axios.get('http://localhost:8000/api/chat')
+        const { data } = await axios.get('http://localhost:8000/api/chats')
         setChats(data)
         console.log(data)
     }
@@ -14,14 +14,15 @@ const [chats, setChats] = useState([]);
         fetchChats()
     }, [])
 
-  return (
-   <div>
-    {chats.map((chat) => {
-        (
-            <h1 key={chat._id}>{chat.chatName}</h1>
-        )
-    })}</div>
-  )
+    return (
+        <div>
+
+            {chats.map((chat) => {
+                (
+                    <h1 key={chat._id}>{chat.chatName}</h1>
+                )
+            })}</div>
+    )
 }
 
 export default Chats
