@@ -3,14 +3,14 @@ const jwt = require("jsonwebtoken");
 const secret = process.env.SECRET_KEY;
 const bcrypt = require("bcrypt");
 const asyncHandler = require("express-async-handler");
-const { authenticate, generateToken } = require("../config/jwt.config");
+
 
 module.exports = {
     register: asyncHandler(async (req, res) => {
         const { firstName, lastName, email, password, picture } = req.body;
 
         console.log(req.body);
-
+                    
         if (!firstName || !lastName || !email || !password) {
             res.status(400);
             throw new Error("Please enter all the fields");
@@ -58,7 +58,6 @@ module.exports = {
     login: asyncHandler(async (req, res) => {
         try {
             const { email, password } = req.body;
-
             const user = await User.findOne({ email });
 
             if (user && (await user.matchPassword(password))) {
@@ -67,7 +66,7 @@ module.exports = {
                     secret,
                     { expiresIn: "1d" }
                 );
-
+                const decodedToken = jwt.verify(userToken, secret);
                 res
                     .cookie("usertoken", userToken, {
                         httpOnly: true,
@@ -80,6 +79,7 @@ module.exports = {
                         picture: user.picture,
                         token: userToken,
                     });
+                    console.log("logged Cookie:", decodedToken)
             } else {
                 res.status(401);
                 throw new Error("Invalid Credentials");
@@ -97,12 +97,17 @@ module.exports = {
         }
     },
 
-    findAllUsers: async (req, res) => {
-        try {
-            const allUsers = await User.find();
-            res.json({ users: allUsers });
-        } catch (err) {
-            res.status(400).json(err);
-        }
-    },
+    findAllUsers: asyncHandler(async (req, res) => {
+        const keyword = req.query.search
+        ? {
+            $or: [
+                { firstName: { $regex: req.query.search, $options: "i" } },
+                { email: { $regex: req.query.search, $options: "i" } },
+            ],
+            }
+        : {};
+    
+        const users = await User.find(keyword).find({ _id: { $ne: req.user?._id ?? null } });
+        res.send(users);
+    })
 };

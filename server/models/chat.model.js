@@ -14,7 +14,7 @@ const ChatSchema = mongoose.Schema(
         },
         users: [{
             type: mongoose.Schema.Types.ObjectId,
-            ref: User
+            ref: 'User'
         }],
         lastMessage: {
             type: mongoose.Schema.Types.ObjectId,
@@ -25,7 +25,7 @@ const ChatSchema = mongoose.Schema(
             ref: 'User',
         },
     },
-    {timestamp: true}
+    {timestamps: true}
 );
 
 const Chat = mongoose.model("Chat", ChatSchema);
