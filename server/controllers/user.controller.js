@@ -102,7 +102,8 @@ module.exports = {
         ? {
             $or: [
                 { firstName: { $regex: req.query.search, $options: "i" } },
-                { email: { $regex: req.query.search, $options: "i" } },
+                { lastName: { $regex: req.query.search, $options: "i" } },
+                { email: { $regex: req.query.search, $options: "i" } }
             ],
             }
         : {};
