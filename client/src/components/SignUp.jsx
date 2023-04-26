@@ -110,7 +110,7 @@ const SignUp = () => {
                 }, { withCredentials: true },
                 config
             );
-            console.log(data);
+            console.log("logged user", data);
             toast({
                 title: "Registration Successful",
                 status: "success",
@@ -119,6 +119,7 @@ const SignUp = () => {
                 position: "bottom",
             });
             localStorage.setItem("userInfo", JSON.stringify(data));
+            console.log("data:",JSON.stringify(data));
             setLoading(false);
             navigate("/chats");
         } catch (error) {

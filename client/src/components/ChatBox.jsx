@@ -1,10 +1,9 @@
-import React from "react"
-import { Box } from "@chakra-ui/layout";
-
+import React from 'react'
 
 const ChatBox = () => {
-
-
+  return (
+    <div>ChatBox</div>
+  )
 }
 
 export default ChatBox

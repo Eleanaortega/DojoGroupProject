@@ -1,23 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { Box } from "@chakra-ui/layout";
-import Chatbox from "../components/ChatBox";
+import Convos from '../components/Convos';
+import ChatBox from '../components/ChatBox'
 import SideDrawer from "../components/SideDrawer"
-
+import { ChatState } from '../Context/ChatProvider'
 
 
 const Chats = () => {
-
+    const { user } = ChatState();
 
     return <div style={{ width: "100%" }}>
-        <SideDrawer/>
-        {/* {user && <SideDrawer/>} */}
+        {user && <SideDrawer/>}
         <Box d= 'flex' justifycontent = "space-between" w = ' 100px' >
-{/* 
-            <MyChats/> */}
-            <Chatbox/>
-            {/* {user && <MyChats/>}
-            {user && <ChatBox/>} */}
+            {user && <Convos/>}
+            {user && <ChatBox/>}
         </Box>
     </div>
 
