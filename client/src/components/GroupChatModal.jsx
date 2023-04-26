@@ -1,6 +1,7 @@
 import { FormControl, Input, useDisclosure, useToast } from '@chakra-ui/react'
 import React, {useState} from 'react'
 import { Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalFooter, ModalBody } from '@chakra-ui/react'
+import { ChatState } from "../Context/ChatProvider";
 
 const GroupChatModal = ({children}) => {
 
