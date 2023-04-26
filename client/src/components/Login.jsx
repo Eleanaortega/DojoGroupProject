@@ -31,24 +31,22 @@ const Login = () => {
             position: "bottom",
             });
             setLoading(false);
-           return;
+            return;
         }
-
-        console.log(email, password);
         try {
             const config = {
             headers: {
-               "Content-type": "application/json",
+            "Content-type": "application/json",
             },
             };
 
             const { data } = await axios.post(
-            "/api/users/login",
-            { email, password },
+                "http://localhost:8000/api/users/login",
+            { email, password }, { withCredentials: true },
             config
             );
 
-            console.log(JSON.stringify(data));
+            console.log("data:",JSON.stringify(data));
             toast({
             title: "Login Successful",
             status: "success",
@@ -58,7 +56,7 @@ const Login = () => {
             });
             localStorage.setItem("userInfo", JSON.stringify(data));
             setLoading(false);
-           navigate("/chats");
+            navigate("/chats");
         } catch (error) {
             toast({
             title: "Error Occured!",
@@ -67,10 +65,10 @@ const Login = () => {
             duration: 5000,
             isClosable: true,
             position: "bottom",
-           });
-           setLoading(false);
-       }
-       };
+            });
+            setLoading(false);
+        }
+        };
 
     
 

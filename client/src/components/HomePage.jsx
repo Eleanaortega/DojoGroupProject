@@ -12,9 +12,12 @@ const HomePage = () => {
 
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem("userInfo"));
-
-        if (!user.firstName) {navigate('/')};
-    }, );
+        if (!user?.id) {
+            navigate(`/`)
+        }else {
+            navigate(`/chats`)
+        }
+        }, []);
 
 
     return <Container maxW='xl' centerContent>
