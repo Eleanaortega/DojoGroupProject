@@ -2,7 +2,7 @@ import React from 'react'
 import { Button } from "@chakra-ui/button";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { Input } from "@chakra-ui/input";
-import { Box, Text } from "@chakra-ui/layout";
+import { Box, Text } from "@chakra-ui/react";
 import { Menu, MenuButton, MenuDivider, MenuItem, MenuList} from "@chakra-ui/menu";
 import { Drawer, DrawerBody, DrawerContent, DrawerHeader,DrawerOverlay} from "@chakra-ui/modal";
 import { Tooltip } from "@chakra-ui/tooltip";
@@ -26,7 +26,7 @@ const SideDrawer = () => {
     const [searchResult, setSearchResult] = useState([])
     const [loading, setLoading] = useState(false);
     const [loadingChat, setLoadingChat] = useState();
-    const { user, setSelectedChat, chats, setChats } = ChatState();
+    const { user, setSelectedChat, selectedChat, chats, setChats } = ChatState();
     const navigate = useNavigate();
     const {isOpen, onOpen, onClose}= useDisclosure();
     const toast = useToast()
@@ -62,7 +62,7 @@ const SideDrawer = () => {
             const { data } = await axios.get(`http://localhost:8000/api/users?search=${search}`,
             { withCredentials: true }
             );
-                setLoading(!loading);
+                setLoading(loading);
                 setSearchResult(data);
                 console.log("data:",searchResult)
         } catch (error) {
@@ -79,8 +79,7 @@ const SideDrawer = () => {
 
 
     const accessChat = async (userId) => {
-        console.log(userId);
-
+        console.log("userid:",userId);
         try {
         setLoadingChat(true);
         const { data } = await axios.post(`http://localhost:8000/api/users/chats`, { userId }, { withCredentials: true });
@@ -129,7 +128,6 @@ return (
                         <MenuButton p={1}>
                             <BellIcon fontSize="2x1" m={1}/>
                         </MenuButton>
-                        {/* <MenuList></MenuList> */}
                     </Menu>
                     <Menu>
                         <MenuButton as={Button} rightIcon={<ChevronDownIcon/>}>
