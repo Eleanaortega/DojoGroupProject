@@ -15,9 +15,6 @@ import { useToast } from '@chakra-ui/react';
 import  ChatLoading  from '../components/ChatLoading';
 import { Spinner } from "@chakra-ui/spinner";
 import ProfileModal from '../components/ProfileModal.jsx';
-// import NotificationBadge from "react-notification-badge";
-// import { Effect } from "react-notification-badge";
-// import { getSender } from "../../config/ChatLogics";
 import UserListItem from '../components/AvatarUser/UserListItem'
 import { ChatState } from "../Context/ChatProvider";
 

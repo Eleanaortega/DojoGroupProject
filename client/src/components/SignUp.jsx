@@ -134,18 +134,6 @@ const SignUp = () => {
             setLoading(false);
         }
     };
-    // const submitHandler = (e) => {
-    //     e.preventDefault()
-    //     console.log('register form')
-    //     axios.post('http://localhost:8000/api/users/register', {
-    //         firstName, lastName, email, password, picture
-    //     }, { withCredentials: true })
-    //     .then ( res => {
-    //         navigate('/chats')
-    //             console.log("logged user", res.data)
-    //         } )
-    //         .catch( err => console.log(err))
-    //     }
 
     return (<VStack spacing='5px'>
 
