@@ -128,7 +128,6 @@ return (
                         <MenuButton p={1}>
                             <BellIcon fontSize="2x1" m={1}/>
                         </MenuButton>
-                        {/* <MenuList></MenuList> */}
                     </Menu>
                     <Menu>
                         <MenuButton as={Button} rightIcon={<ChevronDownIcon/>}>

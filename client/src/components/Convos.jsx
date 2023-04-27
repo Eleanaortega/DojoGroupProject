@@ -7,13 +7,13 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Box } from '@chakra-ui/react'
 import ChatLoading from "./ChatLoading";
-// import GroupChatModal from "./miscellaneous/GroupChatModal";
 import { Button } from "@chakra-ui/button";
 import { ChatState } from "../Context/ChatProvider";
 import { getSender } from '../config/chatLogics';
-import GroupChatModal from '../components/GroupChatModal';
+import GroupChatModal from '../components/GroupChatModal'
 
-const Convos = () => {
+
+const Convos = ({fetchAgain}) => {
     const [loggedUser, setLoggedUser] = useState();
     const {  selectedChat, setSelectedChat, chats, setChats } = ChatState();
     const toast = useToast();
@@ -41,7 +41,7 @@ const Convos = () => {
         fetchChats();
         console.log("logged user:", loggedUser)
         
-        }, []);
+        }, [fetchAgain]);
 
   return (
         <Box 
@@ -54,12 +54,14 @@ const Convos = () => {
                 fontFamily="Work sans"
                 >
                 My Chats
-                <Button 
-                d="flex"
-                fontSize={{ base: "17px", md: '10px', lg: "17px"}}
-                rightIcon={<AddIcon />}
-                >New Group Chat
-                </Button>
+                <GroupChatModal>
+                    <Button
+                        d='flex'
+                        fontSize={{ base: '17px', md: '10px', lg: '17px' }}
+                        rightIcon={<AddIcon/>}
+                    > New Group Chat
+                    </Button>
+                    </GroupChatModal>
             </Box>
             <Box
                 d="flex"
@@ -88,7 +90,7 @@ const Convos = () => {
                                 <Text>
                                     {!chat.isGroupChat?(
                                         getSender(loggedUser, chat.users)
-                                    ) : (chat.className)}
+                                    ) : (chat.chatName)}
                                 </Text>
                             </Box>
                         ))}
