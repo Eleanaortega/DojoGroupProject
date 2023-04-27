@@ -24,14 +24,12 @@ const HomePage = () => {
         <Box
             d='flex'
             justifyContent='center'
+            alignItems='center'
             p={3}
-            bg={'white'}
             w='100%'
             m='40px 0 15px 0'
-            borderRadius='1g'
-            borderWidth='1px'
         >
-            <Text fontSize='4xl' fontFamily='Montserrat-Light' color='black'>ChatMe</Text>
+            <Text fontSize='4xl' fontFamily='monospace' color='white'>ChatMe</Text>
         </Box>
         <Box bg='white' w='100%' p={4} color='black' borderRadius='1g' borderWidth='1px'>
             <Tabs variant='soft-rounded'>
