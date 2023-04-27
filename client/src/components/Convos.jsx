@@ -23,7 +23,7 @@ const Convos = ({fetchAgain}) => {
 
         const { data } = await axios.get("http://localhost:8000/api/users/chats",{ withCredentials: true });
         setChats(data);
-        console.log("chats:", chats)
+        // console.log("chats:", chats)
         } catch (error) {
         toast({
             title: "Error Occured!",
@@ -39,7 +39,7 @@ const Convos = ({fetchAgain}) => {
     useEffect(() => {
         setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
         fetchChats();
-        console.log("logged user:", loggedUser)
+        // console.log("logged user:", loggedUser)
         
         }, [fetchAgain]);
 

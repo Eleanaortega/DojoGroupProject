@@ -1,14 +1,9 @@
 const MessageController = require('../controllers/message.controllers');
 const { authenticate } = require('../config/jwt.config')
-
+const express = require('express')
 
 module.exports = app => {
-    // app.get('/api/messages', authenticate, MessageController.findAllMessages);
-    // app.get('/api/messages/:id', MessageController.findOneMessage);
+
+    app.get('/api/messages/:id', MessageController.allMessages);
     app.post('/api/messages', authenticate, MessageController.sendMessage);
-    // app.put('/api/messages/:id', MessageController.updateMessage);
-
-    // app.patch('/api/messages/:id', MessageController.updateMessage);
-
-    // app.delete('/api/messages/:id', MessageController.deleteMessage);
-};
+}
