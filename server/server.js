@@ -30,7 +30,7 @@ require('./routes/message.routes')(app);
 require('./routes/chats.routes')(app);
 
 
-const server = app.listen(port, () => {
+app.listen(port, () => {
     console.log(`Listening on port: ${port}`)
 });
 
@@ -76,4 +76,3 @@ io.on("connection", (socket) => {
 
 });
 
-// Comment
