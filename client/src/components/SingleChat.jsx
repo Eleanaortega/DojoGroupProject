@@ -8,11 +8,12 @@ import axios from "axios";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import ProfileModal from "./ProfileModal";
 import ScrollableChat from "../components/ScrollableChat";
+import Lottie from "react-lottie";
 // import animationData from "../animations/typing.json";
-import io from "socket.io-client";
+// import io from "socket.io-client";
 import UpdateGroupChatModal from "././UpdateGroupChatModal";
 import { ChatState } from "../Context/ChatProvider";
-const ENDPOINT = "http://localhost:8000"; // "https://talk-a-tive.herokuapp.com"; -> After deployment
+const ENDPOINT = "http://localhost:5000"; // "https://talk-a-tive.herokuapp.com"; -> After deployment
 var socket, selectedChatCompare;
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
@@ -20,9 +21,7 @@ const { user, selectedChat, setSelectedChat } = ChatState();
 const [messages, setMessages] = useState([]);
 const [loading, setLoading] = useState(false);
 const [newMessage, setNewMessage] = useState();
-const [typing, setTyping] = useState(false)
 const [istyping, setIsTyping] = useState(false);
-const [socketConnected, setSocketConnected] = useState(false)
 
 const toast = useToast();
 
@@ -39,8 +38,6 @@ const fetchMessages = async () => {
             // socket.emit("join chat", selectedChat._id);
             setMessages(data);
             setLoading(false);
-
-            socket.emit('join chat', selectedChat._id);
             console.log("messages:", messages)
     } catch (error) {
         toast({
@@ -56,7 +53,7 @@ const fetchMessages = async () => {
 
 const sendMessage = async (event) => {
     if (event.key === "Enter" && newMessage) {
-    socket.emit("stop typing", selectedChat._id);
+    // socket.emit("stop typing", selectedChat._id);
     try {
         setNewMessage("");
         const { data } = await axios.post(
@@ -66,7 +63,7 @@ const sendMessage = async (event) => {
                 chatId: selectedChat._id,
             }, { withCredentials: true }
             );
-            socket.emit("new message", data);
+            // socket.emit("new message", data);
             setMessages([...messages, data]);
             // console.log("messages tets:", messages)
     } catch (error) {
@@ -83,52 +80,12 @@ const sendMessage = async (event) => {
 };
 
     useEffect(() => {
-        socket = io(ENDPOINT);
-        socket.emit('setup', user);
-        socket.on('connected', () => {
-            setSocketConnected(true)
-        })
-        socket.on('typing', () => setIsTyping(true));
-        socket.on('stop typing', () => setIsTyping(false));
-    }, []);
-
-    useEffect(() => {
         fetchMessages();
         selectedChatCompare = selectedChat;
     }, [selectedChat]);
 
-    useEffect(() => {
-        socket.on('message received', (newMessageReceived) => {
-            if(!selectedChatCompare || 
-                selectedChatCompare._id !== newMessageReceived.chat._id)
-                {
-                // give notification
-            } else {
-                setMessages([...messages, newMessageReceived]);
-            }
-        });
-    });
-
     const typingHandler = (e) => {
         setNewMessage(e.target.value)
-
-        if(!socketConnected) return;
-
-        if(!typing) {
-            setTyping(true)
-            socket.emit('typing', selectedChat._id);
-        }
-        let lastTypingTime = new Date().getTime()
-        var timerLength = 3000;
-        setTimeout(() => {
-            var timeNow = new Date().getTime();
-            var timeDifference = timeNow - lastTypingTime;
-
-            if(timeDifference >= timerLength && typing) {
-                socket.emit('stop typing', selectedChat._id);
-                setTyping(false);
-            }
-        }, timerLength);
 }
 
 // return (
@@ -297,10 +254,18 @@ return (
                 isRequired
                 mt={3}
                 >
-                {istyping ? ( <div>Loading...</div>
-                ) : 
-                ( <></> )
-                }
+                {/* {istyping ? (
+                    <div>
+                    <Lottie
+                        // options={defaultOptions}
+                        // height={50}
+                        width={70}
+                        style={{ marginBottom: 15, marginLeft: 0 }}
+                    />
+                    </div>
+                ) : (
+                    <></>
+                )} */}
                 <Input
                     variant="filled"
                     bg="#E0E0E0"
