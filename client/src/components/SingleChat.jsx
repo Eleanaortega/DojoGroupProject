@@ -13,7 +13,9 @@ import Lottie from "react-lottie";
 // import io from "socket.io-client";
 import UpdateGroupChatModal from "././UpdateGroupChatModal";
 import { ChatState } from "../Context/ChatProvider";
-const ENDPOINT = "http://localhost:5000"; // "https://talk-a-tive.herokuapp.com"; -> After deployment
+
+const ENDPOINT = "http://localhost:8000"; 
+
 var socket, selectedChatCompare;
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
@@ -34,8 +36,6 @@ const fetchMessages = async () => {
             { withCredentials: true }
             );
             console.log("selected user id:",selectedChat._id)
-            // console.log("messages is this it:", messages)
-            // socket.emit("join chat", selectedChat._id);
             setMessages(data);
             setLoading(false);
             console.log("messages:", messages)
@@ -87,102 +87,6 @@ const sendMessage = async (event) => {
     const typingHandler = (e) => {
         setNewMessage(e.target.value)
 }
-
-// return (
-//     <>
-//     {selectedChat ? (
-//         <div>
-//             <div>
-//                 <Text
-//                 className="chatbox-top" 
-//                     fontSize={{ base: "28px", md: "30px" }}
-//                     pb={3}
-//                     px={2}
-//                     w="100%"
-//                     fontFamily="Work sans"
-//                     d="flex"
-//                 >
-//                     <IconButton
-//                     d={{ base: "flex", md: "none" }}
-//                     icon={<ArrowBackIcon />}
-//                     onClick={() => setSelectedChat("")}
-//                     />
-//                     {!selectedChat.isGroupChat ? (
-//                     <>
-//                         {getSender(user, selectedChat.users)}
-//                         <ProfileModal user={getSenderFull(user, selectedChat.users)} />
-//                     </>
-//                     ) : (
-//                     <>{selectedChat.chatName.toUpperCase()}
-//                         <UpdateGroupChatModal 
-//                         fetchAgain={fetchAgain}
-//                         fetchMessages={fetchMessages}
-//                         setFetchAgain={setFetchAgain}/>
-//                     </>
-//                     )}
-//                 </Text>
-//             </div>    
-//         <Box
-//             className="chat-messages"
-//             bg="#E8E8E8"
-//             borderRadius="lg"
-//             overflowY="hidden" 
-//             >
-//             {loading ? (
-//                 <Spinner
-//                     size="xl"
-//                     w={20}
-//                     h={20}
-//                     alignSelf="center"
-//                     margin="auto"
-//                 />
-//                 ) : (
-//                 <div className="messages">
-//                     <ScrollableChat messages={messages}/>
-//                 </div>
-//                 )}
-//                 <FormControl
-//                     onKeyDown={sendMessage}
-//                     id="first-name"
-//                     isRequired
-//                     mt={3}
-//                     >
-//                     {/* {istyping ? (
-//                         <div>
-//                         <Lottie
-//                             options={defaultOptions}
-//                             // height={50}
-//                             width={70}
-//                             style={{ marginBottom: 15, marginLeft: 0 }}
-//                         />
-//                         </div>
-//                     ) : (
-//                         <></>
-//                     )} */}
-//                     <Input
-//                         variant="filled"
-//                         bg="#E0E0E0"
-//                         placeholder="Enter a message.."
-//                         value={newMessage}
-//                         onChange={typingHandler}
-//                     />
-//             </FormControl>
-//         </Box>
-//         </div>
-//     ) : (
-//         <Box
-//         d="flex"
-//         alignItems="center"
-//         justifyContent="center"
-//         h="100%"
-//         >
-//         <Text fontSize="3x1" pb={3} fontFamily="Work sans">
-//             Click on a user to start chatting
-//         </Text>
-//         </Box>
-//     )}
-//     </>
-// );
 return (
         <>
         {selectedChat ? (

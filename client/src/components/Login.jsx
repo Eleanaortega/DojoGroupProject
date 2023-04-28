@@ -34,16 +34,9 @@ const Login = () => {
             return;
         }
         try {
-            const config = {
-            headers: {
-            "Content-type": "application/json",
-            },
-            };
-
             const { data } = await axios.post(
                 "http://localhost:8000/api/users/login",
             { email, password }, { withCredentials: true },
-            config
             );
 
             console.log("data:",JSON.stringify(data));
@@ -69,20 +62,6 @@ const Login = () => {
             setLoading(false);
         }
         };
-
-    
-
-// const handleSubmit = (e) => {
-//     e.preventDefault()
-//     console.log('login')
-//     axios.post('http://localhost:8000/api/users/login', {
-//         email, password
-//     }, { withCredentials: true })
-//         .then ( res => {
-//             console.log("logged user" + res.data)
-//         } )
-//         .catch(err => console.log("Error"))
-// }
 
     return ( <VStack spacing='5px'>
         <FormControl id='email' isRequired>

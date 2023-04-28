@@ -14,12 +14,12 @@ import {
     IconButton,
     Text,
     Image,
-  } from "@chakra-ui/react";
+} from "@chakra-ui/react";
 
 const ProfileModal = ({user, children}) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
 
-  return (
+return (
     <div>
         {children ? (
         <span onClick={onOpen}>{children}</span>
